@@ -1,1 +1,1 @@
-from .stp_server import STPServerBase
+from .server import STPServer

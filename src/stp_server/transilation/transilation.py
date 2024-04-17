@@ -4,7 +4,7 @@ import socket
 import json
 from typing import Union, Tuple
 from .enc import Encryption
-from ...settings import STP_PORT, logger
+from ...settings import STP_PORT, TCP_PORT, logger
 
 class TransilationProtocol:
     """The protocol struct
@@ -19,7 +19,8 @@ class TransilationProtocol:
     header : {                                  # not encrypted
         "user": "<user name>",
         "hostname": <hostname>,
-        "recvport": <recving port>,
+        "udpport": <recieving UDP port>,
+        "tcpport" <recieving TCP port>
         "encrypted": <boolean : if the body encrypted or not>,
         "public_key": <private-key>,            # optional
         "namespace": <target namespace>,
@@ -35,25 +36,29 @@ class TransilationProtocol:
     max_packet_size =  4 * 1000 * 1024    # limiting the packet max size to 4 MB 
 
     def __init__(self, 
-            recvport:int=STP_PORT,
+            udp_port:int=STP_PORT,
+            tcp_port:int=TCP_PORT,
             user:str=os.getlogin(),
             hostname:str=socket.gethostname(),
         ) -> None:
         """Create a transilational instance
         Parameters
         ----------
-        recvport    int
-            self listening port (sending as part of an etiquette) 
-        user        str
+        udp_port;    int
+            self listening port (UDP)(sending as part of an etiquette)
+        tcp_port:   int 
+            self listening port (TCP)
+        user:        str
             user name of sender
-        hostname    str
+        hostname:    str
             host name of sender
         """
         self.encyption = Encryption()
         self.default_header = {
             "user": user,
             "hostname": hostname,
-            "recvport": recvport,
+            "udpport": udp_port,
+            "tcpport": tcp_port,
             "encrypted": False,
         }
 
@@ -62,7 +67,8 @@ class TransilationProtocol:
         """Return the size of size_bytes sequence"""
         return struct.calcsize(cls._size_bytes_format)
 
-    def pack(self, data:Union[str, dict], namespace:str="/", enc_key:str="", pass_pub_key:bool=False) -> bytes:
+    def pack(self, data:Union[str, dict], namespace:str="/", enc_key:str="", 
+             pass_pub_key:bool=False, extra_headers:dict={}) -> bytes:
         """Package given data payload
         
         Parameters
@@ -73,13 +79,15 @@ class TransilationProtocol:
             if provided the body will be encrypted with the given public key
         pass_pub_key:   bool
             if True public_key will be sent with header (increase payload size)
-        
+        extra_headers:  dict
+            additional headers to be send
+            
         Returns
         -------
         bytes
             packed bytes data
         """
-        header = { "namespace": namespace,  **self.default_header}
+        header = { **extra_headers, "namespace": namespace,  **self.default_header}
         if pass_pub_key:
             header["public_key"] = self.encyption.pub_key
         
