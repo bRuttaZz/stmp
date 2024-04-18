@@ -74,9 +74,7 @@ class STPServer(STPServerBase):
             num_args = len(inspect.signature(func).parameters)
             if num_args != 1:
                 InvalidImplementation(
-                    "Route function for '{}' accepts excatly 1 arg. {} were given!".format(
-                        namespace, num_args
-                    )
+                    f"Route function for '{namespace}' accepts excatly 1 arg. {num_args} were given!"
                 )
 
             def namespace_callback(
@@ -109,9 +107,7 @@ class STPServer(STPServerBase):
         num_args = len(inspect.signature(func).parameters)
         if num_args != 2:
             InvalidImplementation(
-                "peer_list_update event handler accepts exactly 2 arg. {} were given!".format(
-                    num_args
-                )
+                f"peer_list_update event handler accepts exactly 2 arg. {num_args} were given!"
             )
 
         def callback(new_peer, removed_peers):
@@ -129,11 +125,11 @@ class STPServer(STPServerBase):
         """Bind private routes and other callbacks"""
 
         # middlewares
-        def peer_check(body: dict, header: dict, sender_id: str, protocol: str):
+        def peer_check(_: dict, header: dict, sender_id: str, *args):
             # automated peer addition
             peer = Peer(update_time=time.time(), ip=sender_id, **header)
             if sender_id not in self._peers:
-                logger.debug("new peer added : {}@{}".format(peer.user, sender_id))
+                logger.debug(f"new peer added : {peer.user}@{sender_id}")
                 [
                     callback(new_peer=peer, removed_peers=[])
                     for callback in self._peer_list_update_callbacks
@@ -217,7 +213,7 @@ class STPServer(STPServerBase):
             namespace=namespace,
             to_addr=peer_ip,
             to_port=peer.tcpport,
-            enc_key=peer.public_key,
+            enc_key=peer.public_key if encrypt else "",
             pass_pub_key=True,
         )
 

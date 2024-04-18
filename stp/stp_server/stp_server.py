@@ -160,10 +160,10 @@ class STPServerBase:
             header_s, body_s = self._t_protocol.unpack_size_bytes(roi)
             if (header_s + body_s + self._size_bytes_len) > self._max_packet_size:
                 logger.warning(
-                    f"MSG Parsing: packet having illegal buffer length received!"
+                    "MSG Parsing: packet having illegal buffer length received!"
                 )
                 continue
-            elif header_s is None:
+            if header_s is None:
                 continue  # error parsing (retry and self correct)
 
             header_raw = data[:header_s]
@@ -171,7 +171,7 @@ class STPServerBase:
             header: dict = self._t_protocol.decode_parts(header_raw, False)
             if header is None:
                 continue  # error parsing (retry and self correct)
-            elif header.get("udp_session") == self._udp_session_id:
+            if header.get("udp_session") == self._udp_session_id:
                 continue  # self message  ignoring
 
             if body_s:
@@ -232,4 +232,4 @@ class STPServerBase:
         try:
             asyncio.run(self.listen())
         except KeyboardInterrupt:
-            logger.error(f"STPServer Shutdown : KeyboardInterrupt")
+            logger.error("STPServer Shutdown : KeyboardInterrupt")

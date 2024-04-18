@@ -19,5 +19,5 @@ def peer_list_change(new_peer: Peer, removed_peers: list[Peer]):
 
 
 if __name__ == "__main__":
-    print(f"starting server ...")
+    print("starting server ...")
     app.run()

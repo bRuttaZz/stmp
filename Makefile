@@ -9,7 +9,7 @@ install-build-deps: ## install build dependecied
 	@pip3 install black pylint
 
 pylint:	## test pylint score
-	@pylint $(shell git ls-files '*.py') --output=lint.txt
+	@pylint $(shell git ls-files '*.py') 
 
 format:	## format code 
 	@python3 -m black .

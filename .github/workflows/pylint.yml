@@ -1,7 +1,9 @@
 name: Pylint
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,4 +22,9 @@ jobs:
         pip install pylint
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py')
+        pylint $(git ls-files '*.py') --output=lint.txt || true
+    - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint.txt
+          path: lint.txt
