@@ -9,10 +9,10 @@ jobs:
   tagged-release:
     name: "ReleaseBuild"
     runs-on: "ubuntu-latest"
-    timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
-    matrix:
+    strategy:
+      matrix:
         python-version: ["3.11"]
-
+        
     permissions:
       # required for all workflows
       security-events: read
