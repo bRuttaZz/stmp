@@ -1,6 +1,6 @@
 
-from src import STPServer
-from src.interfaces import Packet, Peer
+from stp import STPServer
+from stp.interfaces import Packet, Peer
 
 app = STPServer()
 

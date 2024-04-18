@@ -4,7 +4,7 @@ import os
 import sys
 import logging
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from src import STPServer
+from stp import STPServer
 
 # configure the logger
 # only for testing

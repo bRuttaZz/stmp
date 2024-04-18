@@ -1,0 +1,58 @@
+name: "tagged-release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  tagged-release:
+    name: "ReleaseBuild"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
+    matrix:
+        python-version: ["3.11"]
+
+    permissions:
+      # required for all workflows
+      security-events: read
+      actions: write
+      contents: write
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}    
+    
+    - name: "Setup"
+      run: |
+        pip3 install --upgrade twine build 
+      working-directory: "."
+
+    - name: "Build"
+      run: |
+        pip3 install .
+        python3 -m build
+      working-directory: "."
+
+    - name: "Publish"
+      id: publish
+      run: |  
+        python3 -m twine upload -u __token__ -p "${{ secrets.SECRET_NAME }}" dist/*
+      working-directory: "."
+      
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: ${{ github.ref_name }}
+        draft: false
+        prerelease: false
+      if: steps.publish.outputs.exit_code == 0
+      

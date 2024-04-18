@@ -1,5 +1,5 @@
 
-from src import STPServer
+from stp import STPServer
 
 app = STPServer()
     
