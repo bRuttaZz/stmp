@@ -41,7 +41,7 @@ jobs:
     - name: "Publish"
       id: publish
       run: |  
-        python3 -m twine upload -u __token__ -p "${{ env.PYPI_TOKEN }}" dist/*
+        python3 -m twine upload -u __token__ -p "${{ secrets.PYPI_SECRET }}" dist/*
       working-directory: "."
       
     - name: Create Release
