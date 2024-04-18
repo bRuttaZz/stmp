@@ -6,5 +6,5 @@ Sitty Talky messaging Protocol : A primitive protocol purely written in python f
 
 from .server import STMPServer
 
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 __author__ = "@bRuttaZz"
