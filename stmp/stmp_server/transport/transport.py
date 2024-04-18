@@ -1,7 +1,7 @@
 import socket
 
 from .interfaces import ListenSession, UDPListenSession, TCPListenSession
-from ...settings import logger, STP_MADDR, STP_PORT, TCP_PORT, TCP_TIMEOUT
+from ...settings import logger, STMP_MADDR, STMP_PORT, TCP_PORT, TCP_TIMEOUT
 
 
 class Transport:
@@ -54,7 +54,7 @@ class Transport:
 class UDPTransport(Transport):
     """A simple UDP transport."""
 
-    def __init__(self, maddr: str = STP_MADDR, port: int = STP_PORT) -> None:
+    def __init__(self, maddr: str = STMP_MADDR, port: int = STMP_PORT) -> None:
         """TransilationLayer! Feel Free to change the port and multicast address.
 
         Parameters

@@ -1,7 +1,7 @@
-from stp import STPServer
-from stp.interfaces import Packet, Peer
+from stmp import STMPServer
+from stmp.interfaces import Packet, Peer
 
-app = STPServer()
+app = STMPServer()
 
 
 @app.route("/test-route")

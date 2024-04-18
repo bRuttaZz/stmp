@@ -6,10 +6,17 @@ install: ## install package
 	@pip3 install .
 
 install-build-deps: ## install build dependecied
-	@pip3 install black pylint
+	@pip3 install black pylint build twine
 
 pylint:	## test pylint score
 	@pylint $(shell git ls-files '*.py') 
 
 format:	## format code 
 	@python3 -m black .
+
+build-wheel: ## build wheel
+	@rm -rf dist
+	@python3 -m build .
+
+publish:	dist	## publish build
+	@python3 -m twine upload  dist/*

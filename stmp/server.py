@@ -2,14 +2,14 @@ import time
 import asyncio
 import inspect
 from typing import List, Dict
-from .stp_server import STPServerBase
+from .stmp_server import STMPServerBase
 from .interfaces import PacketHeader, Packet, Peer
 from .exceptions import InvalidImplementation, UsageError
 from .settings import logger, PEER_DISCOVERY_INTERVEL, PEER_TTL, PEER_CLEANUP_INTERVEL
 
 
-class STPServer(STPServerBase):
-    """Advanced server interface for STPServerBase!"""
+class STMPServer(STMPServerBase):
+    """Advanced server interface for STMPServerBase!"""
 
     _peers: Dict[str, Peer] = {}  # ip -> Peer
     _peer_list_update_callbacks = []
@@ -39,7 +39,7 @@ class STPServer(STPServerBase):
         self._t_protocol.decode_parts["hostname"]
 
     def __init__(self, *args, **kwargs) -> None:
-        """STPServer!
+        """STMPServer!
 
         Parameters
         ----------

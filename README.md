@@ -1,58 +1,60 @@
-<img src="./.assets/logo.png" alt="stp logo" width="160" align="right">
+<img src="./.assets/logo.png" alt="stmp logo" width="160" align="right">
 
-# STP : Sitty Talky Protocol
+# STMP : Sitty Talky Messaging Protocol
 
 ⚠️ **Work In Progress**
 
-⚠️ Beware of the buzzword: Spanig Tree Protocol. The STP described over here is much more stupid..
+**STMP: Sitty Talky Messaging Protocol** : A primitive zero-configuration local network protocol purely written in python, originally intended for tinkering with your office mates over LAN! Created as part of my side project [Sitty Talky](https://github.com/bruttaZz/sittytalky) (hence the name).
 
-**STP: Sitty Talky messaging Protocol** : A primitive protocol purely written in python for tinkering with your office mates over LAN! Originally created for my side project [Sitty Talky](https://github.com/bruttaZz/sittytalky).
-
-[![pypi](https://img.shields.io/pypi/v/stp-server.svg)](https://pypi.org/project/stp-server/)
-[![Release](https://img.shields.io/github/release/bruttazz/stp.svg)](https://github.com/bruttazz/stp/releases/latest)
-[![pylint](https://github.com/bruttazz/stp/actions/workflows/pylint.yml/badge.svg)](https://github.com/bRuttaZz/stp/actions/workflows/pylint.yml)
-[![Release](https://github.com/bruttazz/stp/actions/workflows/releasebuild.yml/badge.svg)](https://github.com/bRuttaZz/stp/actions/workflows/releasebuild.yml)
+[![pypi](https://img.shields.io/pypi/v/stmp-server.svg)](https://pypi.org/project/stmp-server/)
+[![Release](https://img.shields.io/github/release/bruttazz/stmp.svg)](https://github.com/bruttazz/stmp/releases/latest)
+[![pylint](https://github.com/bruttazz/stmp/actions/workflows/pylint.yml/badge.svg)](https://github.com/bRuttaZz/stmp/actions/workflows/pylint.yml)
+[![Release](https://github.com/bruttazz/stmp/actions/workflows/releasebuild.yml/badge.svg)](https://github.com/bRuttaZz/stmp/actions/workflows/releasebuild.yml)
 
 
 
 ---
 
-### STP uses and have
+### Features
 
-- uses UDP for peer finding and broadcasting (actually it's multicasting (used to reduce trafic (as part of being a good citizon)))
-- uses TCP for peer to peer connection (usual things)
-- A unique peer discovery mechanism (may not be perfect though)
-- An end-to-end encrypted peer to peer messaging facility by default (I mean real end-to-end)
-- Good news: there is no threads being spawned, the system can be added to your existing python eventloop (if needed)
+- Yet another zero-configuraion protocol
+- A unique peer discovery mechanism (not thaat special though!)
+- Message broadcasting facility over UDP
+- An end-to-end encrypted peer to peer messaging facility over TCP (I mean real end-to-end encryption)
+- Support middlewares and message routing
+- Support automated peer discovery
+- Single threaded, the system can be clubbed with other asyncio eventloops
+- STMP uses multicasting for message broadcasting and peer discovery, reducing network traffic.. (me being a responsible citizen)
 
 
 ### Requirements
-- **Python version >= 3.11** (As it currently uses `loop.sock_recvfrom` in `asyncio`, Otherwise should go with the `loop.run_in_executor`, which I am not interested on)
+- **Python>=3.11** (As it currently uses `loop.sock_recvfrom` in `asyncio` the minimum python version requirement is 3.11, Otherwise should go with the `loop.run_in_executor` based implementation, which I'm not interested in (anyway it will reduce the requirement to *py3.7*))
 
-- Internally uses **[Pycryptodome](https://pypi.org/project/pycryptodome/)** for rsa encryption.
-- **The system is tested only on Unix (GNU/Linux to be specific)**
+- Internally uses **[Pycryptodome](https://pypi.org/project/pycryptodome/)** for rsa cryptography.
+- **Unix** (probably) as the system is tested only on Unix (GNU/Linux to be specific)
+
 
 ### Installation
-This package can be installed from PyPi using
+STMP package can be installed from PyPi using
 ```sh
-pip install stp-server
+pip install stmp-server
 ```
 
 Or directly from github using 
 ```sh
-pip install 'stp-server @ git+https://github.com/bRuttaZz/stp.git'
+pip install 'stmp-server @ git+https://github.com/bRuttaZz/stmp.git'
 ```
 
 
 ### Usage
-**A simple use case is demonstated bellow**
+An example use case is demonstrated bellow. ([see example](https://github.com/bRuttaZz/stmp/tree/main/examples/listener-sender))
 
-starting the server
+Start a listener process
 ```py
-from stp import STPServer
-from stp.interfaces import Packet, Peer
+from stmp import STMPServer
+from stmp.interfaces import Packet, Peer
 
-app = STPServer()
+app = STMPServer()
 
 @app.route("/test-route")
 def test_route_func(packet:Packet):
@@ -69,11 +71,11 @@ if __name__=="__main__":
     app.run()
 ```
 
-sending messages to the client over a LAN network
+Send messages to it using another client over a LAN network
 ```py
-from stp import STPServer
+from stmp import STMPServer
 
-app = STPServer()
+app = STMPServer()
     
 if __name__=="__main__":
     app.broadcast("/test-route", "hi dear")
@@ -82,6 +84,6 @@ if __name__=="__main__":
 
 ### The module architecture
 
-<img src="./.assets/stp.excalidraw.svg">
+<img src="./.assets/stmp.excalidraw.svg">
 
 

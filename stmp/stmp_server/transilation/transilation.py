@@ -4,7 +4,7 @@ import socket
 import json
 from typing import Union, Tuple
 from .enc import Encryption
-from ...settings import STP_PORT, TCP_PORT, logger
+from ...settings import STMP_PORT, TCP_PORT, logger
 
 
 class TransilationProtocol:
@@ -39,7 +39,7 @@ class TransilationProtocol:
 
     def __init__(
         self,
-        udp_port: int = STP_PORT,
+        udp_port: int = STMP_PORT,
         tcp_port: int = TCP_PORT,
         user: str = os.getlogin(),
         hostname: str = socket.gethostname(),

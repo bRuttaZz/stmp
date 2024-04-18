@@ -1,11 +1,11 @@
 import logging
 
 # logger to be used
-logger = logging.getLogger("stp")
+logger = logging.getLogger("stmp")
 
 # some configs/consts
-STP_MADDR = "239.192.1.107"
-STP_PORT = 57000  # UDP port
+STMP_MADDR = "239.192.1.107"
+STMP_PORT = 57000  # UDP port
 TCP_PORT = 57001  # certainly TCP port
 
 TCP_TIMEOUT = 5  # in seconds

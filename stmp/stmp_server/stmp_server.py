@@ -5,11 +5,11 @@ from uuid import uuid4
 from .transport import UDPTransport, TCPTransport
 from .transport.interfaces import ListenSession
 from .transilation import TransilationProtocol
-from ..settings import logger, STP_PORT, STP_MADDR, TCP_PORT
+from ..settings import logger, STMP_PORT, STMP_MADDR, TCP_PORT
 
 
-class STPServerBase:
-    """The mighty STPServer backend"""
+class STMPServerBase:
+    """The mighty STMPServer backend"""
 
     # callbacks will be stored over here (namespaces-> list[callbacks])
     _callbacks = {}
@@ -19,8 +19,8 @@ class STPServerBase:
         self,
         user: str = os.getlogin(),
         hostname: str = socket.gethostname(),
-        maddr: str = STP_MADDR,
-        udpport: int = STP_PORT,
+        maddr: str = STMP_MADDR,
+        udpport: int = STMP_PORT,
         tcpport: int = TCP_PORT,
     ) -> None:
         """STPServer backend.

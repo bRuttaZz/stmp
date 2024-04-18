@@ -4,16 +4,16 @@ build-backend = "setuptools.build_meta"
 
 
 [tool.setuptools.dynamic]
-version = {attr = "stp.__version__"}
+version = {attr = "stmp.__version__"}
 dependencies = {file = "requirements.txt"}
 
 [tool.setuptools]
-packages = ["stp"]
+packages = ["stmp"]
 include-package-data = true
 
 [project]
-name = "stp-server"
-description = "STP: Sitty Talky messaging Protocol : A primitive protocol purely written in python for tinkering with your office mates over LAN!"
+name = "stmp-server"
+description = "A primitive zero-configuration local network protocol purely written in python, originally intended for tinkering with your office mates over LAN!"
 requires-python = ">=3.11"
 readme = "README.md"
 license = {file = "LICENSE"}
@@ -21,8 +21,8 @@ dynamic = ["version", "dependencies"]
 authors = [
   { name="@bRuttaZz", email="agrajpdasprivate@gmail.com" },
 ]
-keywords = ["stp", "sitty-talky", "sittytalky", 
-            "LAN", "Messaging", "protocol"]
+keywords = ["stmp", "sitty-talky", "sittytalky", 
+            "LAN", "WLAN", "peer-discovery", "Messaging", "protocol", "multicast dns", "dns", "udp", "tcp"]
 classifiers = [
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',
@@ -41,8 +41,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/bRuttaZz/stp"
-Issues = "https://github.com/bRuttaZz/stp/issues"
-Repository = "https://github.com/bRuttaZz/stp.git"
+Homepage = "https://github.com/bRuttaZz/stmp"
+Issues = "https://github.com/bRuttaZz/stmp/issues"
+Repository = "https://github.com/bRuttaZz/stmp.git"
+Documentation = "https://pypi.org/project/stmp-server/"
+
 
 

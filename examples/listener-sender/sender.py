@@ -1,6 +1,6 @@
-from stp import STPServer
+from stmp import STMPServer
 
-app = STPServer()
+app = STMPServer()
 
 if __name__ == "__main__":
     app.broadcast("/test-route", "hi dear")
