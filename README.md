@@ -5,6 +5,11 @@
 
 **STP: Sitty Talky messaging Protocol** : A primitive protocol purely written in python for tinkering with your office mates over LAN! Originally created for my side project [Sitty Talky](https://github.com/bruttaZz/sittytalky).
 
+[![pypi](https://img.shields.io/pypi/v/stp-server.svg)](https://pypi.org/project/stp-server/)
+[![Release](https://img.shields.io/github/release/bruttazz/stp.svg)](https://github.com/bruttazz/stp/releases/latest)
+
+
+---
 
 ### STP uses and have
 
