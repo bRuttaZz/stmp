@@ -7,6 +7,9 @@
 
 [![pypi](https://img.shields.io/pypi/v/stp-server.svg)](https://pypi.org/project/stp-server/)
 [![Release](https://img.shields.io/github/release/bruttazz/stp.svg)](https://github.com/bruttazz/stp/releases/latest)
+[![pylint](https://github.com/bruttazz/stp/actions/workflows/pylint.yml/badge.svg)](https://github.com/bRuttaZz/stp/actions/workflows/pylint.yml)
+[![Release](https://github.com/bruttazz/stp/actions/workflows/releasebuild.yml/badge.svg)](https://github.com/bRuttaZz/stp/actions/workflows/releasebuild.yml)
+
 
 
 ---
