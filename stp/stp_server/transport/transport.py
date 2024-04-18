@@ -17,7 +17,7 @@ class Transport:
             self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
         except AttributeError:
             logger.warning(
-                f"It seems like the system is not supporting socket.SO_REUSEPORT option!"
+                "It seems like the system is not supporting socket.SO_REUSEPORT option!"
                 + " (never mind, it makes no sense, most of the time)"
             )
         self._sock.setblocking(False)
@@ -151,7 +151,7 @@ class TCPTransport(Transport):
 
             # confirm reciept
             self._sock.settimeout(TCP_TIMEOUT)
-            d = self._sock.recv(1024)
+            self._sock.recv(1024)
             logger.debug(f"Sent message to server: {addr}:{port}")
             return True
         except TimeoutError:

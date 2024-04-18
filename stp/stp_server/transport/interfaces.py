@@ -125,9 +125,9 @@ class TCPListenSession(ListenSession):
                 client_socket, buff_size
             )  # avialble from py3.11
         except TimeoutError:
-            logger.warning(f"Client Takes too much time : {address} [is he a hacker!]")
+            logger.warning("Client Takes too much time : {address} [is he a hacker!]")
         except OSError:
-            logger.warning(f"Client disconnected in between!")
+            logger.warning("Client disconnected in between!")
         finally:
             try:
                 client_socket.shutdown(socket.SHUT_RDWR)
