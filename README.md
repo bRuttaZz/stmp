@@ -1,4 +1,7 @@
+<img src="./.assets/logo.png" alt="stp logo" width="160" align="right">
+
 # STP : Sitty Talky Protocol
+
 ⚠️ **Work In Progress**
 
 ⚠️ Beware of the buzzword: Spanig Tree Protocol. The STP described over here is much more stupid..
