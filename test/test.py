@@ -14,9 +14,7 @@ handler = logging.StreamHandler(sys.stdout)
 stp_logger.addHandler(handler)
 stp_logger.setLevel(logging.DEBUG)
 
-
 session = STMPServer()
-
 
 if len(sys.argv) > 1:
     session.send_udp(

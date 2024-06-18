@@ -4,7 +4,7 @@ import logging
 logger = logging.getLogger("stmp")
 
 # some configs/consts
-STMP_MADDR = "239.192.1.107"
+STMP_MADDR = "224.0.0.109"
 STMP_PORT = 57000  # UDP port
 TCP_PORT = 57001  # certainly TCP port
 

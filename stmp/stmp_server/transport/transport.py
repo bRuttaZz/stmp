@@ -13,9 +13,9 @@ class Transport:
     def _prepare_sock(self):
         """Common socket settings"""
         self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        try:
+        if hasattr(socket, 'SO_REUSEPORT'):
             self._sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
-        except AttributeError:
+        else:
             logger.warning(
                 "It seems like the system is not supporting socket.SO_REUSEPORT option!"
                 + " (never mind, it makes no sense, most of the time)"
@@ -70,7 +70,6 @@ class UDPTransport(Transport):
 
         # socket
         self._sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self._sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 20)
 
     def __enter__(self, *args, **kwargs):
         return self
@@ -93,22 +92,15 @@ class UDPTransport(Transport):
 
     def listen(self) -> "ListenSession":
         self._prepare_sock()
-        # Set some options to make it multicast-friendly
-        self._sock.setsockopt(socket.SOL_IP, socket.IP_MULTICAST_LOOP, 1)
 
-        # Bind to the port
-        self._sock.bind(("", self.port))
+        self._sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 1)
+        self._sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, True)
 
-        # Set some more multicast options
-        intf = socket.gethostbyname(socket.gethostname())
-        self._sock.setsockopt(
-            socket.SOL_IP, socket.IP_MULTICAST_IF, socket.inet_aton(intf)
-        )
-        self._sock.setsockopt(
-            socket.SOL_IP,
-            socket.IP_ADD_MEMBERSHIP,
-            socket.inet_aton(self.addr) + socket.inet_aton(intf),
-        )
+        #register to multicast group
+        mGroup = socket.inet_aton(STMP_MADDR) + socket.INADDR_ANY.to_bytes(4, byteorder='big')
+        self._sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mGroup)
+        #bind the socket to the correct port
+        self._sock.bind(('', STMP_PORT))
 
         return UDPListenSession(self._sock, self.addr)
 
