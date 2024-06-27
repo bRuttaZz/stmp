@@ -4,7 +4,7 @@
 
 ⚠️ **Work In Progress**
 
-**STMP: Sitty Talky Messaging Protocol** : A primitive zero-configuration local network protocol purely written in python, originally intended for tinkering with your office mates over LAN! Created as part of my side project [Sitty Talky](https://github.com/bruttaZz/sittytalky) (hence the name).
+**STMP: Sitty Talky Messaging Protocol** : A primitive zero-configuration local network protocol purely written in python, originally intended for tinkering with my office mates over LAN! Created as part of my side project [Sitty Talky](https://github.com/bruttaZz/sittytalky) (hence the name).
 
 [![pypi](https://img.shields.io/pypi/v/stmp-server.svg)](https://pypi.org/project/stmp-server/)
 [![Release](https://img.shields.io/github/release/bruttazz/stmp.svg)](https://github.com/bruttazz/stmp/releases/latest)
